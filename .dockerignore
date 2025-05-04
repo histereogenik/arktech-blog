@@ -1,0 +1,44 @@
+# Ignore environment files
+.env
+.env.dev
+
+# Ignore Python virtual environments
+venv/
+.venv/
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local database files
+*.sqlite3
+
+# Ignore static files generated during collectstatic
+staticfiles/
+static/
+
+# Ignore log files
+*.log
+
+# Ignore temporary and swap files
+*.swp
+*.tmp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore test directories
+tests/
+test/
+
+# Ignore version control system files
+.git/
+.gitignore
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/

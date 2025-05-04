@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "arktech-blog"
+version = "0.1.0"
+description = ""
+authors = ["Humberto Nacif <gigantedeluz@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "arktech_blog" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.6"
+djangorestframework = "^3.15.2"
+psycopg2-binary = "^2.9.10"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-django = "^4.10.0"
+factory-boy = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
