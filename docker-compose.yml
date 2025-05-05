@@ -1,4 +1,16 @@
 services:
+  db:
+    image: postgres:16
+    container_name: arktech_db
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   web:
     build: .
     container_name: arktech_web
@@ -7,5 +19,8 @@ services:
       - .:/app
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=1
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
