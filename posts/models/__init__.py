@@ -1,3 +1,3 @@
-from .post import Post, ALLOWED_TAGS
+from .post import ALLOWED_TAGS, Post
 
 __all__ = ["Post", "ALLOWED_TAGS"]
