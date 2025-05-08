@@ -1,8 +1,20 @@
 import pytest
+import shutil
+import uuid
+from django.conf import settings
+from django.urls import reverse
 from rest_framework.test import APIClient
 from users.models import User
-from django.urls import reverse
-import uuid
+
+# Temporary media root for file uploads
+@pytest.fixture(autouse=True)
+def temp_media_root(tmp_path, settings):
+    temp_dir = tmp_path / "media"
+    temp_dir.mkdir()
+    settings.MEDIA_ROOT = str(temp_dir)
+    yield
+    shutil.rmtree(str(temp_dir))
+
 
 @pytest.fixture
 def api_client():
