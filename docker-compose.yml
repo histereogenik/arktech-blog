@@ -16,6 +16,7 @@ services:
   web:
     build: .
     container_name: arktech_web
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/opt/pysetup
     ports:
