@@ -27,4 +27,4 @@ RUN poetry config virtualenvs.create false \
 COPY . /opt/pysetup/
 
 # Default command
-CMD ["gunicorn", "arktech_blog.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
