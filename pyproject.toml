@@ -13,7 +13,9 @@ dependencies = [
     "psycopg2-binary (>=2.9.10,<3.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
     "pillow (>=11.2.1,<12.0.0)",
-    "djangorestframework-simplejwt (>=5.5.0,<6.0.0)"
+    "djangorestframework-simplejwt (>=5.5.0,<6.0.0)",
+    "gunicorn (>=23.0.0,<24.0.0)",
+    "django-cors-headers (>=4.7.0,<5.0.0)"
 ]
 
 
@@ -25,4 +27,19 @@ build-backend = "poetry.core.masonry.api"
 pytest = "^8.3.5"
 pytest-django = "^4.11.1"
 factory-boy = "^3.3.3"
+black = "^25.1.0"
+ruff = "^0.11.8"
 
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+exclude = [
+  "**/migrations/*",
+]
+
+[tool.ruff.lint]
+extend-select = ["I"]
