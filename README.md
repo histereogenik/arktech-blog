@@ -91,3 +91,190 @@ Note: Django does NOT serve static or media files in production.
 * Gunicorn runs inside Docker
 * Static and media files are correctly configured on the server
 * CORS only allows trusted origins
+
+# API Documentation
+
+This section provides a clear overview of the available API endpoints for the frontend to integrate with.
+
+---
+
+## Base URL
+
+**Production backend:**
+[https://arktech-backend.onrender.com](https://arktech-backend.onrender.com)
+
+---
+
+## Authentication
+
+### Obtain JWT Token
+
+**POST** `/api/auth/token/`
+
+**Body (JSON):**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}
+```
+
+**Response:**
+
+```json
+{
+  "access": "<access_token>",
+  "refresh": "<refresh_token>"
+}
+```
+
+### Refresh JWT Token
+
+**POST** `/api/auth/token/refresh/`
+
+**Body (JSON):**
+
+```json
+{
+  "refresh": "<refresh_token>"
+}
+```
+
+**Response:**
+
+```json
+{
+  "access": "<new_access_token>"
+}
+```
+
+---
+
+## Posts
+
+### List All Posts (Public)
+
+**GET** `/api/posts/`
+
+**Query Parameters (optional):**
+
+* `tag`: Filter by tag (e.g., `?tag=Cybersecurity`)
+
+### Retrieve Single Post (Public)
+
+**GET** `/api/posts/{id}/`
+
+### Create Post (Staff Only)
+
+**POST** `/api/posts/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+**Body (multipart/form-data):**
+
+* `title`: string
+* `subtitle`: string
+* `tags`: JSON array (e.g., `["Software Development", "Cybersecurity"]`)
+* `paragraphs`: JSON array (e.g., `[{"title": "Intro", "content": "Text"}, {"content": "More text"}]`)
+* `cta`: string (Markdown supported)
+* `image`: file upload (JPEG or PNG)
+
+### Update Post (Staff Only)
+
+**PATCH** `/api/posts/{id}/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+**Body (JSON):**
+
+```json
+{
+  "title": "Updated Title"
+}
+```
+
+### Delete Post (Staff Only)
+
+**DELETE** `/api/posts/{id}/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+---
+
+## Users (Admin/Superuser Only)
+
+The users API is protected by the `IsSuperUserOrReadOnly` permission, meaning only superusers can perform modifications.
+
+### List All Users
+
+**GET** `/api/users/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+### Retrieve Single User
+
+**GET** `/api/users/{id}/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+### Create User (Sets is\_staff = true by default)
+
+**POST** `/api/users/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+**Body (JSON):**
+
+```json
+{
+  "email": "newuser@example.com",
+  "username": "newuser",
+  "password": "securepassword"
+}
+```
+
+### Update User
+
+**PATCH** `/api/users/{id}/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+**Body (JSON):**
+
+```json
+{
+  "email": "updated@example.com",
+  "username": "updatedusername"
+}
+```
+
+### Delete User
+
+**DELETE** `/api/users/{id}/`
+
+**Headers:**
+
+* `Authorization: Bearer <access_token>`
+
+---
+
+## Notes for Frontend
+
+* When the access token expires, use the refresh token endpoint to get a new one.
+* Always send `tags` and `paragraphs` as JSON strings in multipart requests.
+* Public endpoints (list and retrieve posts) do not require authentication.
