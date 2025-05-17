@@ -39,7 +39,7 @@ services:
       - ./media:/usr/share/nginx/html:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.media.rule=Host(`arktech.uk`) && PathPrefix(`/media`)"
+      - "traefik.http.routers.media.rule=Host(`api.arktech.uk`) && PathPrefix(`/media`)"
       - "traefik.http.routers.media.entrypoints=websecure"
       - "traefik.http.routers.media.tls.certresolver=myresolver"
 
@@ -54,7 +54,7 @@ services:
       - .env.prod
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.arktech.rule=Host(`arktech.uk`)"
+      - "traefik.http.routers.arktech.rule=Host(`api.arktech.uk`)"
       - "traefik.http.routers.arktech.entrypoints=websecure"
       - "traefik.http.routers.arktech.tls.certresolver=myresolver"
     expose:
