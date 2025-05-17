@@ -137,6 +137,8 @@ env.bak/
 venv.bak/
 .env.dev
 .env.prod
+db/password.txt
+letsencrypt/acme.json
 
 # Spyder project settings
 .spyderproject
